@@ -1,5 +1,5 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   transpileDependencies: true,
-  publicPath: '/vue-random-beer/'
+  publicPath: '/vue-random-beer-deploy/'
 })

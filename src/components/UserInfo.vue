@@ -1,68 +1,33 @@
 <template>
     <div class="userWrapper">
         <div class="avatar">
-            <img :src="avatarImage" loading="lazy" alt="avatar" @error="setDefaultImg">
+            <img :src="userAvatar" loading="lazy" alt="avatar" @error="setDefaultImg">
         </div>
         <div class="userInfo">
-            <p> {{ info.first_name }} </p>
-            <p>Age: {{ getAge }}</p>
-            <p>Position: {{ getPosition }}</p>
+            <p> {{ userInfo.first_name }} </p>
+            <p>Age: {{ userAge }}</p>
+            <p>Position: {{ userPosition }}</p>
         </div>
     </div>
+    <button class="changeUserButton" @click="fetchUser">Change User</button>
 </template>
 
 <script>
-import axios from 'axios'
+import { mapGetters, mapActions } from 'vuex'
 import noImage from '../assets/No_image_available.png'
 
 export default {
-    data() {
-        return {
-            info: {},
-        }
-    },
     methods: {
+        ...mapActions(['fetchUser']),
         setDefaultImg(e) {
             e.target.src = noImage
         }
-    },
+    }, 
     computed: {
-        isInfoEmpty() {
-            return JSON.stringify(this.info)  !== '{}'
-        },
-        avatarImage() {
-            if(this.isInfoEmpty) {
-                return this.info.avatar
-            } else {
-                return this.avatarImage
-             }
-            
-        },
-        getAge() {
-                let str = this.info.date_of_birth;
-                let date = new Date();
-                let year = date.getFullYear();
-                if(str !== undefined) {
-                    return year - Number(str.slice(0, 4))
-                }
-                return "Error"
-        },
-        getPosition() {
-            if(this.isInfoEmpty) {
-               const data = Object.assign(this.info.employment)
-               const res = data.title
-               return res
-            }
-            return 2
-        }
+        ...mapGetters(['userInfo', 'userAge', 'userPosition', 'userAvatar']),
     },
     mounted() {
-        axios
-            .get('https://random-data-api.com/api/users/random_user')
-            .then(response => (this.info = response.data))
-            .catch(error => {
-            console.log(error)
-          })
+        this.fetchUser()
     }
 }
 </script>
@@ -85,6 +50,32 @@ img {
     width: 150px;
     height: 150px;
     border-radius: 50%;
+}
+.changeUserButton {
+    all: unset;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    background: cadetblue;
+    color: azure;
+    padding: 8px 16px;
+    font-size: 16px;
+    min-width: 150px;
+    padding: 8px 16px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.6s ease;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.changeUserButton:hover:enabled {
+    border-color: #CCCC66;
+}
+
+.changeUserButton:active:enabled {
+    background: #CCCC66;
+    transition: 0.2s ease;
 }
 
 p {

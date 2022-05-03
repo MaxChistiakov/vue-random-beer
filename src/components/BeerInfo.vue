@@ -2,37 +2,21 @@
   <div class="beerCard">
     <h3>Let's try!!!</h3>
     <div class="beerInfo">
-      <p v-for="beer in getData" :key="beer">{{ beer[0] }}: {{ beer[1] }}</p>
+      <p v-for="beer in beersArrInfo" :key="beer">{{ beer[0] }}: {{ beer[1] }}</p>
     </div>
     <button class="changeBeerButton" @click="getAnotherBeer">Another beer</button>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  data () {
-    return {
-      info: {},
-    }
-  },
-  methods: {
-    getAnotherBeer() {
-      axios
-      .get('https://random-data-api.com/api/beer/random_beer')
-      .then(response => (this.info = response.data))
-      .catch(error => {
-        console.log(error)
-      })
-    },
-  },
+   methods: {
+     ...mapActions(['getAnotherBeer'])
+   },
   computed: {
-    getData() {
-        const arr = Object.entries(this.info)
-        const beerData = arr.splice(2, 9)
-        return beerData
-    }
+    ...mapGetters(['beerInfo', 'beersArrInfo'])
   },
   mounted() {
     this.getAnotherBeer()
@@ -75,7 +59,6 @@ p {
     cursor: pointer;
     text-align: center;
     transition: 0.6s ease;
-    margin-bottom: 10px;
 }
 
 .changeBeerButton:hover:enabled {
