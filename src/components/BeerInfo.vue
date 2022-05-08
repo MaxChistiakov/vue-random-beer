@@ -4,7 +4,10 @@
     <div class="beerInfo">
       <p v-for="beer in beersArrInfo" :key="beer">{{ beer[0] }}: {{ beer[1] }}</p>
     </div>
-    <button class="changeBeerButton" @click="getAnotherBeer">Another beer</button>
+    <my-button 
+    @click="getAnotherBeer">
+    Another beer
+    </my-button>
   </div>
 </template>
 
@@ -44,7 +47,7 @@ p {
   margin-bottom: 20px;
 }
 
-.changeBeerButton {
+/* .changeBeerButton {
     margin-bottom: 10px;
     all: unset;
     border-radius: 5px;
@@ -68,7 +71,7 @@ p {
 .changeBeerButton:active:enabled {
     background: #CCCC66;
     transition: 0.2s ease;
-}
+} */
 
 @media (max-width: 950px) {
   .beerInfo {

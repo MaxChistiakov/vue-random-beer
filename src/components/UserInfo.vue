@@ -9,7 +9,10 @@
             <p>Position: {{ userPosition }}</p>
         </div>
     </div>
-    <button class="changeUserButton" @click="fetchUser">Change User</button>
+    <my-button 
+    @click="fetchUser">
+    Change User
+    </my-button>
 </template>
 
 <script>
@@ -50,32 +53,6 @@ img {
     width: 150px;
     height: 150px;
     border-radius: 50%;
-}
-.changeUserButton {
-    all: unset;
-    border-radius: 5px;
-    border: 2px solid transparent;
-    background: cadetblue;
-    color: azure;
-    padding: 8px 16px;
-    font-size: 16px;
-    min-width: 150px;
-    padding: 8px 16px;
-    font-size: 1rem;
-    cursor: pointer;
-    text-align: center;
-    transition: 0.6s ease;
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-
-.changeUserButton:hover:enabled {
-    border-color: #CCCC66;
-}
-
-.changeUserButton:active:enabled {
-    background: #CCCC66;
-    transition: 0.2s ease;
 }
 
 p {
